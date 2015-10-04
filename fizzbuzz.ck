@@ -1,3 +1,4 @@
+Machine.add("Imports.ck");
 // set tempo to 120 bpm
 0.5::second => dur beat;
 4::beat => dur measure;
