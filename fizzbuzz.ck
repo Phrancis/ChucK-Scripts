@@ -29,7 +29,11 @@ while (now < stop) {
     } else {
         <<< "Result: ", stepCounter >>>;
     }
-    
+    // identify reference A notes and their octave and print them
+    if (oscPitch.getFreq() % 27.5 == 0.0) {
+        ((oscPitch.getFreq() / 27.5) - 1) $ int => int octave;
+        <<< "Reference A", octave >>>;
+    }
     <<< "Osc Freq: ", oscPitch.getFreq() >>>;
     oscPitch.change(1) => fizzbuzzOsc.freq;
     beat +=> now;
