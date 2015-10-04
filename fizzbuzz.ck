@@ -7,7 +7,10 @@ Math.pow ( 2.0, 1.0/12.0 ) - 1.0 => float freqIncrement;
 
 // oscillators
 SawOsc fizzbuzzOsc => dac;
-( 55.0 / 2.0 ) => float oscFreq => fizzbuzzOsc.freq; // Musical note: A0 | 27.5 Hertz
+
+27.5 => float NOTE_A_ZERO;
+OscPitch oscPitch;
+NOTE_A_ZERO => oscPitch.freq => fizzbuzzOsc.freq;
 
 // audio controls
 0.15 => fizzbuzzOsc.gain;
@@ -16,22 +19,19 @@ SawOsc fizzbuzzOsc => dac;
 now + 16::measure => time stop; // 64 beats
 1 => int stepCounter;
 
-while ( now < stop ) {
-    <<< "-----" >>>;
-    if ( stepCounter % 15 == 0 ) {
+while (now < stop) {
+    if (stepCounter % 15 == 0) {
         <<< "Result: ", "FizzBuzz" >>>;
-    }
-    else if ( stepCounter % 5 == 0 && stepCounter % 3 != 0 ) {
+    } else if (stepCounter % 5 == 0) {
         <<< "Result: ", "Fizz" >>>;
-    }
-    else if ( stepCounter % 3 == 0 && stepCounter % 5 != 0 ) {
+    } else if (stepCounter % 3 == 0) {
         <<< "Result: ", "Buzz" >>>;
-    }
-    else {
+    } else {
         <<< "Result: ", stepCounter >>>;
     }
-    <<< "oscFreq: ", oscFreq >>>;
-    oscFreq * ( 1 + freqIncrement ) => oscFreq => fizzbuzzOsc.freq;
+    
+    <<< "Osc Freq: ", oscPitch.getFreq() >>>;
+    oscPitch.change(1) => fizzbuzzOsc.freq;
     beat +=> now;
     1 +=> stepCounter;
 }
