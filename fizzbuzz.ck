@@ -1,46 +1,12 @@
-Machine.add("Imports.ck");
-// set tempo to 120 bpm
-0.5::second => dur beat;
-4::beat => dur measure;
+// Imports.ck
+// This file defines which files to add to the VM
+// Inspired from instructions found at:
+//  https://lists.cs.princeton.edu/pipermail/chuck-users/2012-March/006605.html
+Machine.add("OscUtils/OscPitch.ck") => int OscPitchId;
 
-// freqIncrement value is approx: 0.059463
-Math.pow ( 2.0, 1.0/12.0 ) - 1.0 => float freqIncrement;
 
-// oscillators
-SqrOsc fizzbuzzOsc => dac;
-
-27.5 => float NOTE_A_ZERO;
-OscPitch oscPitch;
-NOTE_A_ZERO => oscPitch.freq => fizzbuzzOsc.freq;
-0 => int NoteAOctave;
-
-// audio controls
-0.15 => fizzbuzzOsc.gain;
-
-// variables for looping
-now + 16::measure => time stop; // 64 beats
-1 => int stepCounter;
-
-while (now < stop) {
-    <<< "-----" >>>;
-    if (stepCounter % 15 == 0) {
-        <<< "Result: ", "FizzBuzz" >>>;
-    } else if (stepCounter % 5 == 0) {
-        <<< "Result: ", "Fizz" >>>;
-    } else if (stepCounter % 3 == 0) {
-        <<< "Result: ", "Buzz" >>>;
-    } else {
-        <<< "Result: ", stepCounter >>>;
-    }
-    // identify reference A notes and their octave and print them
-    if (Math.floor(Math.fmod(oscPitch.getFreq(), 27.5)) == 0.0) {
-        ((oscPitch.getFreq() / 27.5) - 1) $ int => int octave;
-        <<< "Reference A", NoteAOctave >>>;
-        1 +=> NoteAOctave;
-    }
-    <<< "Osc Freq: ", oscPitch.getFreq() >>>;
-    oscPitch.change(1) => fizzbuzzOsc.freq;
-    beat +=> now;
-    1 +=> stepCounter;
+if(me.args() > 0) {
+    Machine.add("fizzbuzz_run:" + me.arg(0) + ".ck");
+} else {
+    Machine.add("fizzbuzz_run.ck");
 }
-<<< "end program" >>>;
