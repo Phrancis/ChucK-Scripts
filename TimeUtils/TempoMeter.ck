@@ -44,5 +44,5 @@ public class TempoMeter {
     fun int getUpper() { return upper; }
     fun void setUpper(int val) { val => upper; }
     fun int getLower() { return lower; }
-    fun void setLower(int val) { val => upper; }
+    fun void setLower(int val) { val => lower; }
 }
