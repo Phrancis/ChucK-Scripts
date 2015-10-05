@@ -1,12 +1,8 @@
-Machine.add("Imports.ck");
-// set tempo to 240 bpm
-0.25::second => dur beat;
-4::beat => dur measure;
+TempoMeter tempoMeter;
+tempoMeter.setTempo(240) => dur beat;
+tempoMeter.setMeter(4,4) => dur measure;
 
-// freqIncrement value is approx: 0.059463
-Math.pow ( 2.0, 1.0/12.0 ) - 1.0 => float freqIncrement;
-
-// oscillators
+// oscillator to digital audio controller
 SqrOsc fizzbuzzOsc => dac;
 
 27.5 => float NOTE_A_ZERO;
