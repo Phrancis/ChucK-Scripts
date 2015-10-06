@@ -1,5 +1,5 @@
 TempoMeter tempoMeter;
-tempoMeter.setTempo(140) => dur beat;
+tempoMeter.setTempo(120) => dur beat;
 tempoMeter.setMeter(4,4) => dur measure;
 
 55 => float NOTE_A1;
