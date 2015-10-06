@@ -7,36 +7,34 @@ OscPitch oscPitch;
 NOTE_A1 => oscPitch.freq;
 1 => int NoteAOctave;
 
-OscChords oscChords;
+OscChords chord;
 
 // oscillator to digital audio controller
 TriOsc fizzbuzzOsc => dac;
-oscPitch.freq => oscChords.root => fizzbuzzOsc.freq;
+oscPitch.freq => chord.root => fizzbuzzOsc.freq;
 
 // audio controls
 0.1 => fizzbuzzOsc.gain;
-
-
 
 // variables for looping
 now + 12::measure => time stop;
 1 => int stepCounter;
 
 while (now < stop) {
-    oscChords.noChord();
+    chord.noChord();
     <<< "-----" >>>;
     if (stepCounter % 15 == 0) {
-        oscChords.major7(oscPitch.getFreq());
-        oscChords.play();
-        <<< "Result: ", "FizzBuzz", "| chord:", oscChords.getCurrentChord() >>>;
+        chord.major7(oscPitch.getFreq());
+        chord.play();
+        <<< "Result: ", "FizzBuzz", "| chord:", chord.getCurrentChord() >>>;
     } else if (stepCounter % 5 == 0) {
-        oscChords.minor(oscPitch.getFreq());
-        oscChords.play();
-        <<< "Result: ", "Fizz", "| chord:", oscChords.getCurrentChord() >>>;
+        chord.minor(oscPitch.getFreq());
+        chord.play();
+        <<< "Result: ", "Fizz", "| chord:", chord.getCurrentChord() >>>;
     } else if (stepCounter % 3 == 0) {
-        oscChords.major(oscPitch.getFreq());
-        oscChords.play();
-        <<< "Result: ", "Buzz", "| chord:", oscChords.getCurrentChord() >>>;
+        chord.major(oscPitch.getFreq());
+        chord.play();
+        <<< "Result: ", "Buzz", "| chord:", chord.getCurrentChord() >>>;
     } else {
         <<< "Result: ", stepCounter >>>;
     }
@@ -45,10 +43,10 @@ while (now < stop) {
         <<< "Reference A", NoteAOctave >>>;
         1 +=> NoteAOctave;
     }
-    <<< "Osc Freq: ", oscPitch.getFreq() >>>;
+    <<< "Osc Freq: ", oscPitch.getFreq(), "Hz" >>>;
     
     beat +=> now;
-    oscChords.stop();
+    chord.stop();
     oscPitch.change(1) => fizzbuzzOsc.freq;
     1 +=> stepCounter;
 }
