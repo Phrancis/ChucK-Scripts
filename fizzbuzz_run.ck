@@ -28,15 +28,15 @@ while (now < stop) {
     if (stepCounter % 15 == 0) {
         oscChords.major7(oscPitch.getFreq());
         oscChords.play();
-        <<< "Result: ", "FizzBuzz", "| chord: major7" >>>;
+        <<< "Result: ", "FizzBuzz", "| chord:", oscChords.getCurrentChord() >>>;
     } else if (stepCounter % 5 == 0) {
         oscChords.minor(oscPitch.getFreq());
         oscChords.play();
-        <<< "Result: ", "Fizz", "| chord: minor" >>>;
+        <<< "Result: ", "Fizz", "| chord:", oscChords.getCurrentChord() >>>;
     } else if (stepCounter % 3 == 0) {
         oscChords.major(oscPitch.getFreq());
         oscChords.play();
-        <<< "Result: ", "Buzz", "| chord: major" >>>;
+        <<< "Result: ", "Buzz", "| chord:", oscChords.getCurrentChord() >>>;
     } else {
         <<< "Result: ", stepCounter >>>;
     }

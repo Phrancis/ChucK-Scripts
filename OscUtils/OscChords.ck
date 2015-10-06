@@ -4,6 +4,7 @@ public class OscChords {
     0.05 => float gain;
     0.0 => float mute;
     SawOsc I, III, V, VII;
+    string currentChord;
     
     // initialize oscillators
     0 => I.freq;
@@ -24,6 +25,7 @@ public class OscChords {
         0 => III.freq;
         0 => V.freq;
         0 => VII.freq;
+        "no chord" => currentChord;
     }
     
     fun void major(float root) {
@@ -31,6 +33,7 @@ public class OscChords {
         oscPitch.change(4)    => III.freq;
         oscPitch.change(3)    => V.freq;
         0                     => VII.freq;
+        "major" => currentChord;
     }
     
     fun void minor(float root) {
@@ -38,6 +41,7 @@ public class OscChords {
         oscPitch.change(3)    => III.freq;
         oscPitch.change(4)    => V.freq;
         0                     => VII.freq;
+        "minor" => currentChord;
     }
     
     fun void major7(float root) {
@@ -45,6 +49,7 @@ public class OscChords {
         oscPitch.change(4)    => III.freq;
         oscPitch.change(3)    => V.freq;
         oscPitch.change(4)    => VII.freq;
+        "major7" => currentChord;
     }
     
     fun void play() {
@@ -60,4 +65,6 @@ public class OscChords {
         mute => V.gain;
         mute => VII.gain;
     }
+    
+    fun string getCurrentChord() { return currentChord; }
 }
