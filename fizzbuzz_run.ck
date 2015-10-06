@@ -10,7 +10,7 @@ NOTE_A1 => oscPitch.freq;
 OscChords oscChords;
 
 // oscillator to digital audio controller
-SqrOsc fizzbuzzOsc => dac;
+TriOsc fizzbuzzOsc => dac;
 oscPitch.freq => oscChords.root => fizzbuzzOsc.freq;
 
 // audio controls
@@ -23,19 +23,20 @@ now + 12::measure => time stop;
 1 => int stepCounter;
 
 while (now < stop) {
+    oscChords.noChord();
     <<< "-----" >>>;
     if (stepCounter % 15 == 0) {
         oscChords.major7(oscPitch.getFreq());
         oscChords.play();
-        <<< "Result: ", "FizzBuzz" >>>;
+        <<< "Result: ", "FizzBuzz", "| chord: major7" >>>;
     } else if (stepCounter % 5 == 0) {
         oscChords.minor(oscPitch.getFreq());
         oscChords.play();
-        <<< "Result: ", "Fizz" >>>;
+        <<< "Result: ", "Fizz", "| chord: minor" >>>;
     } else if (stepCounter % 3 == 0) {
         oscChords.major(oscPitch.getFreq());
         oscChords.play();
-        <<< "Result: ", "Buzz" >>>;
+        <<< "Result: ", "Buzz", "| chord: major" >>>;
     } else {
         <<< "Result: ", stepCounter >>>;
     }
@@ -46,9 +47,9 @@ while (now < stop) {
     }
     <<< "Osc Freq: ", oscPitch.getFreq() >>>;
     
-    oscPitch.change(1) => fizzbuzzOsc.freq;
     beat +=> now;
     oscChords.stop();
+    oscPitch.change(1) => fizzbuzzOsc.freq;
     1 +=> stepCounter;
 }
 <<< "end program" >>>;

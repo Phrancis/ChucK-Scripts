@@ -14,6 +14,10 @@ public class OscChords {
     mute => III.gain;
     mute => V.gain;
     mute => VII.gain;
+    I   => dac;
+    III => dac;
+    V   => dac;
+    VII => dac; 
     
     fun void noChord() {
         0 => I.freq;
@@ -48,10 +52,6 @@ public class OscChords {
         gain => III.gain;
         gain => V.gain;
         gain => VII.gain;
-        I   => dac;
-        III => dac;
-        V   => dac;
-        VII => dac;
     }
     
     fun void stop() {        
