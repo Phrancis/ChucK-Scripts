@@ -19,19 +19,22 @@ oscPitch.freq => oscChords.root => fizzbuzzOsc.freq;
 
 
 // variables for looping
-now + 8::measure => time stop;
+now + 16::measure => time stop;
 1 => int stepCounter;
 
 while (now < stop) {
     <<< "-----" >>>;
     if (stepCounter % 15 == 0) {
+        oscChords.major7(oscPitch.getFreq());
+        oscChords.play(beat);
         <<< "Result: ", "FizzBuzz" >>>;
     } else if (stepCounter % 5 == 0) {
-        oscChords.major(oscPitch.getFreq());
-        // locks up right here
+        oscChords.minor(oscPitch.getFreq());
         oscChords.play(beat);
         <<< "Result: ", "Fizz" >>>;
     } else if (stepCounter % 3 == 0) {
+        oscChords.major(oscPitch.getFreq());
+        oscChords.play(beat);
         <<< "Result: ", "Buzz" >>>;
     } else {
         <<< "Result: ", stepCounter >>>;
