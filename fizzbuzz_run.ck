@@ -46,7 +46,7 @@ while (now < stop) {
     <<< "Osc Freq: ", oscPitch.getFreq(), "Hz" >>>;
     
     beat +=> now;
-    chord.stop();
+    chord.mute();
     oscPitch.change(1) => fizzbuzzOsc.freq;
     1 +=> stepCounter;
 }

@@ -2,21 +2,14 @@
 public class OscChords {
     OscPitch oscPitch;
     this.root => float root;
-    
-    0.05 => float gain;
-    0.0 => float mute;
     SawOsc _1st, _3rd, _5th, _7th;
+    0.05 => float playGain;
+    0.0 => float muteGain;
     string currentChord;
     
     // initialize oscillators
-    0 => _1st.freq;
-    0 => _3rd.freq;
-    0 => _5th.freq;
-    0 => _7th.freq;
-    mute => _1st.gain;
-    mute => _3rd.gain;
-    mute => _5th.gain;
-    mute => _7th.gain;
+    noChord();
+    mute();
     _1st => dac;
     _3rd => dac;
     _5th => dac;
@@ -30,7 +23,25 @@ public class OscChords {
         0 => _7th.freq;
         "no chord" => currentChord;
     }
-    
+    // Sets the playGain on the chord to make it audible.
+    fun void play() {
+        playGain => _1st.gain;
+        playGain => _3rd.gain;
+        playGain => _5th.gain;
+        playGain => _7th.gain;
+    }
+    // Sets the playGain on the chord to make it inaudible.
+    fun void mute() {        
+        muteGain => _1st.gain;
+        muteGain => _3rd.gain;
+        muteGain => _5th.gain;
+        muteGain => _7th.gain;
+    }
+    // @return string : the name of the current chord.
+    fun string getCurrentChord() { return currentChord; }
+ 
+    // CHORDS
+ 
     // Creates a major chord.
     // @input float root : the root note of the chord.
     fun void major(float root) {
@@ -58,20 +69,6 @@ public class OscChords {
         oscPitch.change(4)    => _7th.freq;
         "major7" => currentChord;
     }
-    // Sets the gain on the chord to make it audible.
-    fun void play() {
-        gain => _1st.gain;
-        gain => _3rd.gain;
-        gain => _5th.gain;
-        gain => _7th.gain;
-    }
-    // Sets the gain on the chord to make it inaudible.
-    fun void stop() {        
-        mute => _1st.gain;
-        mute => _3rd.gain;
-        mute => _5th.gain;
-        mute => _7th.gain;
-    }
-    // @return string : the name of the current chord.
-    fun string getCurrentChord() { return currentChord; }
+
+
 }

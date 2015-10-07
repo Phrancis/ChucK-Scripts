@@ -1,4 +1,4 @@
-// Imports.ck
+// fizzbuzz.ck
 // This file defines which files to add to the VM
 Machine.add("OscUtils/OscPitch.ck") => int OscPitchId;
 Machine.add("OscUtils/OscChords.ck") => int OscChordsId;
