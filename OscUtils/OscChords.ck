@@ -1,4 +1,4 @@
-// Class used to create chords.
+// Class used to create chords using an oscillator.
 public class OscChords {
     OscPitch oscPitch;
     this.root => float root;
@@ -10,10 +10,7 @@ public class OscChords {
     // initialize oscillators
     noChord();
     mute();
-    _1st => dac;
-    _3rd => dac;
-    _5th => dac;
-    _7th => dac; 
+    toDac();
     
     // Sets all chord frequencies to 0, making them inaudible.
     fun void noChord() {
@@ -36,6 +33,12 @@ public class OscChords {
         muteGain => _3rd.gain;
         muteGain => _5th.gain;
         muteGain => _7th.gain;
+    }
+    fun void toDac() {
+        _1st => dac;
+        _3rd => dac;
+        _5th => dac;
+        _7th => dac;        
     }
     // @return string : the name of the current chord.
     fun string getCurrentChord() { return currentChord; }
